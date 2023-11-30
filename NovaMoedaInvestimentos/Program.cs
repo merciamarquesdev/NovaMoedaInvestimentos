@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-
 namespace NovaMoedaInvestimentos;
 public class Program
 {
