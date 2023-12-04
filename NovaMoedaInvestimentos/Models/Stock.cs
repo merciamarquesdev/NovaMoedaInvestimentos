@@ -5,9 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NovaMoedaInvestimentos.Models
 {
+    [Table("Stocks")]
     public class Stock
     {
+        [Key]
         public int StockId { get; set; }
+
         [Required(ErrorMessage ="Stock Name is Required")]
         [Display(Name="Stock Name")]
         [MinLength(3, ErrorMessage ="Stock Name must have at least 3 characters")]
@@ -20,7 +23,7 @@ namespace NovaMoedaInvestimentos.Models
         [MaxLength(4, ErrorMessage = "Stock Symbol must have a maximum of 4 characters")]
         public string Symbol { get; set; }
 
-        [Required(ErrorMessage = "Current Price is Required")] //parei no video 23 - secao 3
+        [Required(ErrorMessage = "Current Price is Required")] 
         [Column(TypeName = "decimal(18,2)")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
