@@ -11,11 +11,9 @@ namespace NovaMoedaInvestimentos.Models
         [Key]
         public int TransactionId { get; set; }
 
-        [EnumDataType(typeof(ETransactionType))]
         [Required(ErrorMessage = "Transaction Type is Required")]
-        [Column(TypeName = "enum")]
         [DisplayName("Transaction Type")]
-        private Enum ETransactionType { get; set; }
+        public ETransactionType ETransactionType { get; set; }
 
         [Required(ErrorMessage = "Amount is Required")]
         [Column(TypeName = "decimal(18,2)")]
