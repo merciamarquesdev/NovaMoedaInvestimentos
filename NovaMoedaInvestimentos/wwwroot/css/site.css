@@ -20,5 +20,8 @@ body {
 th, td {
     padding: 8px;
     text-align: left;
+}
+
+td {
     vertical-align: middle;
 }

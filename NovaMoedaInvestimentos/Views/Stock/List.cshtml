@@ -4,33 +4,22 @@
     ViewData["Title"] = "List";
 }
 <div>
-    <h1>Ações</h1>
-    <!--voltar na aula 35-->
+    <h1>@ViewData["Titulo"]</h1>
     <br />
+    <h6>@ViewData["Data"]</h6>
+    <br />
+    <h6>@ViewBag.Total @ViewBag.TotalStocks</h6>
+    <hr />
+
 </div>
-<table class="table">
-    <tbody>
+<div class= "container">
+    <!--table-dark-->
+    <table class="table">
 
 @foreach(var stock in Model)
         {
-            <tr>
-                <td>
-                    <p><img src="@stock.Image" width="50"></p>
-                </td>
-                <td>
-                    <h4>@stock.Symbol</h4>
-                </td>
-                <td>
-                    <h4>@stock.Name</h4>
-                </td>
-                <td>
-                    <p><img src="~/images/grafico-acoes-editado.png" width="100"></p>
-                </td>
-                <td>
-                    <h4>@stock.CurrentPrice.ToString("c")</h4>
-                </td>
-            </tr>
+            <partial name ="_StocksResume" for="@stock"/>
         }
-    </tbody>
-</table>
+    </table>
+</div>
 
