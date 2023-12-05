@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NovaMoedaInvestimentos.Context;
+using NovaMoedaInvestimentos.Models;
 using NovaMoedaInvestimentos.Repositories;
 using NovaMoedaInvestimentos.Repositories.Interfaces;
 
@@ -22,8 +23,8 @@ public class Startup
         services.AddTransient<IStockRepository, StockRepository>();
         services.AddTransient<IUserAccountRepository, UserAccountRepository>();
         services.AddTransient<ITransactionRepository, TransactionRepository>();
-
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped(sp => ShoppingCart.GetShoppingCart(sp));
 
         services.AddControllersWithViews();
 
