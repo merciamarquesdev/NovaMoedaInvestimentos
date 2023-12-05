@@ -23,7 +23,12 @@ public class Startup
         services.AddTransient<IUserAccountRepository, UserAccountRepository>();
         services.AddTransient<ITransactionRepository, TransactionRepository>();
 
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         services.AddControllersWithViews();
+
+        services.AddMemoryCache();
+        services.AddSession();
 
     }
 
@@ -41,9 +46,10 @@ public class Startup
             app.UseHsts();
         }
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
 
+        app.UseStaticFiles();
         app.UseRouting();
+        app.UseSession();
 
         app.UseAuthorization();
 
