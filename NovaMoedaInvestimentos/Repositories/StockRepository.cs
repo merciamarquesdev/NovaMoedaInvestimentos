@@ -13,6 +13,10 @@ namespace NovaMoedaInvestimentos.Repositories
         }
         public IEnumerable<Stock> Stocks => _context.Stocks;
 
+        public IEnumerable<Stock> FavoriteStocks => _context.Stocks.
+                                   Where(l => l.IsFavoriteStock);
+
+
         public Stock GetStockById(int stockId)
         {
             return _context.Stocks.FirstOrDefault(s => s.StockId == stockId);

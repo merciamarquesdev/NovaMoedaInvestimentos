@@ -18,7 +18,8 @@ namespace NovaMoedaInvestimentos.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Symbol = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     CurrentPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    Image = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IsFavoriteStock = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
