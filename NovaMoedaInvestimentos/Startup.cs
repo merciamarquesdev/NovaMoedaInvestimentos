@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NovaMoedaInvestimentos.Context;
+using NovaMoedaInvestimentos.Repositories;
+using NovaMoedaInvestimentos.Repositories.Interfaces;
 
 namespace NovaMoedaInvestimentos;
 public class Startup
@@ -16,7 +18,11 @@ public class Startup
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-        
+
+        services.AddTransient<IStockRepository, StockRepository>();
+        services.AddTransient<IUserAccountRepository, UserAccountRepository>();
+        services.AddTransient<ITransactionRepository, TransactionRepository>();
+
         services.AddControllersWithViews();
     }
 

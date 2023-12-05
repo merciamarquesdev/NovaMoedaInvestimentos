@@ -48,8 +48,8 @@ namespace NovaMoedaInvestimentos.Migrations
                     ETransactionType = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    StockId = table.Column<int>(type: "int", nullable: false),
-                    UserAccountId = table.Column<int>(type: "int", nullable: false)
+                    StockId = table.Column<int>(type: "int", nullable: true),
+                    UserAccountId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
