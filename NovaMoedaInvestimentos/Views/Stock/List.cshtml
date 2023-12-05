@@ -3,51 +3,34 @@
 @{
     ViewData["Title"] = "List";
 }
-
-<h1>List</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div>
+    <h1>Ações</h1>
+    <!--voltar na aula 35-->
+    <br />
+</div>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Symbol)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrentPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Symbol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StockId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StockId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StockId">Delete</a>
-            </td>
-        </tr>
-}
+
+@foreach(var stock in Model)
+        {
+            <tr>
+                <td>
+                    <p><img src="@stock.Image" width="50"></p>
+                </td>
+                <td>
+                    <h4>@stock.Symbol</h4>
+                </td>
+                <td>
+                    <h4>@stock.Name</h4>
+                </td>
+                <td>
+                    <p><img src="~/images/grafico-acoes-editado.png" width="100"></p>
+                </td>
+                <td>
+                    <h4>@stock.CurrentPrice.ToString("c")</h4>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
