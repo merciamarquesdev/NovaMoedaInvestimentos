@@ -12,8 +12,8 @@ using NovaMoedaInvestimentos.Context;
 namespace NovaMoedaInvestimentos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231205001559_PopularTransactions")]
-    partial class PopularTransactions
+    [Migration("20231205152421_PopularStocks")]
+    partial class PopularStocks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -35,6 +35,5 @@ namespace NovaMoedaInvestimentos.Models
         [MinLength(10, ErrorMessage = "URL Image must have at least 10 characters")]
         [MaxLength(200, ErrorMessage = "URL Image must have a maximum of 200 characters")]
         public string Image { get; set; }
-
     }
 }

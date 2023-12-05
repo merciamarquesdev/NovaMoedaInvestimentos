@@ -12,7 +12,7 @@ using NovaMoedaInvestimentos.Context;
 namespace NovaMoedaInvestimentos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231205000821_Inicial")]
+    [Migration("20231205152032_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -17,5 +17,15 @@ namespace NovaMoedaInvestimentos.Repositories
         {
             return _context.Stocks.FirstOrDefault(s => s.StockId == stockId);
         }
+
+        public void UpdateStock(Stock stock)
+        {
+            var exisitingStock = _context.Stocks.Find(stock.StockId);
+            if(exisitingStock != null)
+            {
+                exisitingStock.CurrentPrice = stock.CurrentPrice;
+                _context.SaveChanges();
+            }
+        }
     }
 }

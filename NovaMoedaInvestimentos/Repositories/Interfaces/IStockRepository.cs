@@ -6,5 +6,6 @@ namespace NovaMoedaInvestimentos.Repositories.Interfaces
     {
         IEnumerable<Stock> Stocks { get; }
         Stock GetStockById(int stockId);
+        void UpdateStock(Stock stock);
     }
 }
