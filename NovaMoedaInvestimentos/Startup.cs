@@ -23,6 +23,8 @@ public class Startup
         services.AddTransient<IStockRepository, StockRepository>();
         services.AddTransient<IUserAccountRepository, UserAccountRepository>();
         services.AddTransient<ITransactionRepository, TransactionRepository>();
+        services.AddTransient<IOrderRepository, OrderRepository>();
+
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped(sp => ShoppingCart.GetShoppingCart(sp));
 
