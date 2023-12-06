@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NovaMoedaInvestimentos.Models;
+using NovaMoedaInvestimentos.Repositories;
 using NovaMoedaInvestimentos.Repositories.Interfaces;
+using NovaMoedaInvestimentos.ViewModels;
 
 namespace NovaMoedaInvestimentos.Controllers
 {
@@ -29,6 +32,34 @@ namespace NovaMoedaInvestimentos.Controllers
         {
             var stock = _stockRepository.Stocks.FirstOrDefault(s => s.StockId == stockId);
             return View(stock);
+        }
+
+        public IActionResult Search(string searchString)
+        {
+            IEnumerable<Stock> stocks;
+            string category = string.Empty;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                stocks = _stockRepository.Stocks.OrderBy(p => p.StockId);
+                category = "Todas as Ações";
+            }
+            else
+            {
+                stocks = _stockRepository.Stocks
+                          .Where(p => p.Name.ToLower().Contains(searchString.ToLower()));
+
+                if (stocks.Any())
+                    category = "Ações";
+                else
+                    category = "Nenhuma ação foi encontrada";
+            }
+
+            return View("~/Views/Stock/List.cshtml", new StockListViewModel
+            {
+                Stocks = stocks,
+                Category = category
+            });
         }
     }
 }
