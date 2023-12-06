@@ -11,5 +11,8 @@ namespace NovaMoedaInvestimentos.Context
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<DetailOrder> DetailOrders { get; set; }
     }
 }

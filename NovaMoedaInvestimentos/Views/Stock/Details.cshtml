@@ -1,7 +1,8 @@
 ﻿@model Stock
+
 <div class="container" style="margin: 0; padding: 0;text-align: center;">
     <div id="header" style="padding: 0;">
-        <img src="~/images/graph/acoes-header.png" alt="Fale Conosco" style="display:block ; margin: 0 auto; max-width: 100%;">
+        <img src="~/images/graph/acoes-header.png" alt="acoes" style="display:block ; margin: 0 auto; max-width: 100%;">
     </div>
     <div class="card mb-3" style="max-width:auto;">
         <br />
@@ -19,11 +20,11 @@
                     <br />
 
                     <p class="button">
-                        <a class="btn btn-primary" id="cartButton" asp-controller="ShoppingCart"
+                        <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart"
                            asp-action="AddItemToShoppingCart" asp-route-StockId="@Model.StockId">
                             Comprar
                         </a>
-                        <a asp-controller="Stock" asp-action="List" class="btn btn-outline-info">Ver todas as ações</a>
+                        <a asp-controller="Stock" asp-action="List" class="btn btn-outline-success">Ver todas as ações</a>
                     </p>
 
                 </div>

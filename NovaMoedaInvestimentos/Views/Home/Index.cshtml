@@ -3,20 +3,31 @@
 
 <partial name="_Carousel"/>
 <br />
+    <div>
+        <div style="padding:900">
+            <h2>Ações mais ativas</h2>
+            <p>As ações mais ativas são determinadas por diversos parâmetros e indicadores de mercado que mostram os líderes, retardatários, os que estão avançando, os que estão caindo, etc.
+                Abaixo você poderá ver os preços atuais das ações com maior atividade. Obtenha informações sobre as ações mais negociadas na bolsa para as suas necessidades de investimento. </p>
+            <br />
+        </div>
 
-    <h2>Ações mais ativas</h2>
-    <p>As ações mais ativas são determinadas por diversos parâmetros e indicadores de mercado que mostram os líderes, retardatários, os que estão avançando, os que estão caindo, etc.
-        Abaixo você poderá ver os preços atuais das ações com maior atividade. Obtenha informações sobre as ações mais negociadas na bolsa para as suas necessidades de investimento. </p>
-    <br />
-    <h3>Invista hoje!</h3>
-    <br />
+        <div>
+            <h3>Invista hoje! </h3>
+    
+            <br />
 
-    <table class="table" style="align-items:center;">
+            <table class="table table-hover table-responsive" style="align-items:center;">
 
-        @foreach (var stock in Model.FavoriteStocks)
-        {
-            <partial name="_StocksResume" for="@stock" />
-        }
-    </table>
+                @foreach (var stock in Model.FavoriteStocks)
+                {
+                    <partial name="_StocksResume" for="@stock" />
+                }
+            </table>
+
+            <div style="text-align: center;">
+                <a asp-controller="Stock" asp-action="List" class="btn btn-outline-success">Ver todas as ações</a>
+            </div>
+        </div>
+    </div>
 </div>
 

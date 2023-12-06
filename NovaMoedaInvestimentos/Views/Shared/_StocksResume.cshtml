@@ -1,28 +1,14 @@
 ﻿@model Stock
-<tr>
-    <td>
-        <h5><img src="@Model.Image" width="50"></h5>
-    </td>
-    <td>
-        <h5>@Model.Symbol</h5>
-    </td>
-    <td>
-        <h5>
-            <a asp-controller="Stock" asp-action="Details" asp-route-stockId="@Model.StockId">@Model.Name</a>
-        </h5>
-    </td>
-    <td>
-        <h5><img src="~/images/graph/apple.png" width="120"></h5>
-    </td>
-    <td>
-        <h5>@Model.CurrentPrice.ToString("c")</h5>
-    </td>
-    <td>
-        <p class="button">
-            <a class="btn btn-primary" id="cartButton" asp-controller="ShoppingCart"
-            asp-action="AddItemToShoppingCart" asp-route-StockId="@Model.StockId">
-            Comprar
-            </a>
-        </p>
-    </td>
+
+<tr> 
+    <td class="text-center"><img src="@Model.Image" width="50"/></td>
+    <td class="text-left">@Model.Symbol</td>
+    <td class="text-left"><h6><a asp-controller="Stock" asp-action="Details" asp-route-stockId="@Model.StockId" style="color:black">@Model.Name</a></h6></td>
+    <td class="text-center"><img src="~/images/graph/apple.png" width="120"/></td>
+    <td><div style="text-align: right;"><h6>@Model.CurrentPrice.ToString("c")</h6></div></td>
+    <td><div style="text-align: center;"><a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddItemToShoppingCart" asp-route-StockId="@Model.StockId"> Comprar </a></div></td>
 </tr>
+         
+
+
+
