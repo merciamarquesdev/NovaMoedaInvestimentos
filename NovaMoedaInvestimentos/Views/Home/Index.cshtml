@@ -1,1 +1,25 @@
-﻿<partial name="_Carousel"/>
+﻿@model HomeViewModel
+
+<partial name="_Carousel"/>
+<br />
+
+<div class="home-page">
+    <h2>Ações mais ativas</h2>
+    <p>As ações mais ativas são determinadas por diversos parâmetros e indicadores de mercado que mostram os líderes, retardatários, os que estão avançando, os que estão caindo, etc.
+        Abaixo você poderá ver os preços atuais das ações com maior atividade. Obtenha informações sobre as ações mais negociadas na bolsa para as suas necessidades de investimento. </p>
+    <br />
+    <h3>Invista hoje!</h3>
+    <br />
+</div>
+
+<div class="table-home">
+    <!--table-dark-->
+    <table class="table">
+
+        @foreach (var stock in Model.FavoriteStocks)
+        {
+            <partial name="_StocksResume" for="@stock" />
+        }
+    </table>
+</div>
+

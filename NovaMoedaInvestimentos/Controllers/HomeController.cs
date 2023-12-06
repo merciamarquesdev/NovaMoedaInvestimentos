@@ -1,14 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NovaMoedaInvestimentos.Models;
+using NovaMoedaInvestimentos.Repositories.Interfaces;
+using NovaMoedaInvestimentos.ViewModels;
 using System.Diagnostics;
 
 namespace NovaMoedaInvestimentos.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IStockRepository _stockRepository;
+
+        public HomeController(IStockRepository stockRepository)
+        {
+            _stockRepository = stockRepository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel
+            {
+                FavoriteStocks = _stockRepository.FavoriteStocks
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult Demo()
