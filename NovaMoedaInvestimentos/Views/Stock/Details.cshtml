@@ -1,0 +1,33 @@
+﻿@model Stock
+<div class="container" style="margin: 0; padding: 0;text-align: center;">
+    <div id="header" style="padding: 0;">
+        <img src="~/images/graph/acoes-header.png" alt="Fale Conosco" style="display:block ; margin: 0 auto; max-width: 100%;">
+    </div>
+    <div class="card mb-3" style="max-width:auto;">
+        <br />
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="@Model.Image" width="200" alt="stock" style="vertical-align:central">
+            </div>
+            <div class="col-sm-8">
+                <div class="card-body">
+                
+                    <h2 class="card-title" >@Model.Name</h2>
+                    <p class="card-text">@Model.Symbol</p>
+                    <h3 class="card-text">@Model.CurrentPrice.ToString("c")</h3>
+                
+                    <br />
+
+                    <p class="button">
+                        <a class="btn btn-primary" id="cartButton" asp-controller="ShoppingCart"
+                           asp-action="AddItemToShoppingCart" asp-route-StockId="@Model.StockId">
+                            Comprar
+                        </a>
+                        <a asp-controller="Stock" asp-action="List" class="btn btn-outline-info">Ver todas as ações</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

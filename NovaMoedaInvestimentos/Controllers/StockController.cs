@@ -24,5 +24,11 @@ namespace NovaMoedaInvestimentos.Controllers
 
             return View(stocks);
         }
+
+        public IActionResult Details(int stockId)
+        {
+            var stock = _stockRepository.Stocks.FirstOrDefault(s => s.StockId == stockId);
+            return View(stock);
+        }
     }
 }

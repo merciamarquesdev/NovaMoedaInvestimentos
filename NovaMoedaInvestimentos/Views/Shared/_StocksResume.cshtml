@@ -7,12 +7,22 @@
         <h5>@Model.Symbol</h5>
     </td>
     <td>
-        <h5>@Model.Name</h5>
+        <h5>
+            <a asp-controller="Stock" asp-action="Details" asp-route-stockId="@Model.StockId">@Model.Name</a>
+        </h5>
     </td>
     <td>
         <h5><img src="~/images/graph/apple.png" width="120"></h5>
     </td>
     <td>
         <h5>@Model.CurrentPrice.ToString("c")</h5>
+    </td>
+    <td>
+        <p class="button">
+            <a class="btn btn-primary" id="cartButton" asp-controller="ShoppingCart"
+            asp-action="AddItemToShoppingCart" asp-route-StockId="@Model.StockId">
+            Comprar
+            </a>
+        </p>
     </td>
 </tr>

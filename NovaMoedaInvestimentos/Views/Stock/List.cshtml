@@ -6,20 +6,19 @@
 @{
     ViewData["Title"] = "List";
 }
-    <div>
-        <br />
-        <h6>@ViewData["Data"]                |                @ViewBag.Total @ViewBag.TotalStocks</h6>
-        <hr />
-
-    </div>
-    <div class= "container">
-        <!--table-dark-->
-        <table class="table table-green">
+    
+    <table class="table table-dark">
 
     @foreach(var stock in Model)
             {
                 <partial name ="_StocksResume" for="@stock"/>
             }
-        </table>
+    </table>
+
+    <div>
+        <br />
+        <h6>@ViewData["Data"]                |                @ViewBag.Total @ViewBag.TotalStocks</h6>
+        <hr />
+
     </div>
 </div>
