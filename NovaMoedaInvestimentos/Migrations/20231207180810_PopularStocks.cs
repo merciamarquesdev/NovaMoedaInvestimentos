@@ -10,7 +10,7 @@ namespace NovaMoedaInvestimentos.Migrations
         {
             migrationBuilder.Sql("INSERT INTO " +
                 "Stocks (CategoryId, Name, Symbol, CurrentPrice, Image, IsFavoriteStock) " +
-                "VALUES (1, 'XP Inc', 'XPBR', ROUND(RAND() * 100, 2), 'https://logodownload.org/wp-content/uploads/2019/07/xp-investimentos-logo-8.png', 1)");
+                "VALUES (1, 'XP Inc', 'XPBR', 99.10, 'https://logodownload.org/wp-content/uploads/2019/07/xp-investimentos-logo-8.png', 1)");
 
             migrationBuilder.Sql("INSERT INTO " +
                 "Stocks (CategoryId, Name, Symbol, CurrentPrice, Image, IsFavoriteStock) " +

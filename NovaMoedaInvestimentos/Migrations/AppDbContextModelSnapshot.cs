@@ -30,11 +30,6 @@ namespace NovaMoedaInvestimentos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -85,8 +80,25 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ETransactionType")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<DateTime?>("Timestamp")
                         .HasColumnType("datetime2");
@@ -94,12 +106,7 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Property<double>("TotalOrderItems")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserAccountId")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderId");
-
-                    b.HasIndex("UserAccountId");
 
                     b.ToTable("Orders");
                 });
@@ -168,59 +175,6 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.ToTable("Stocks");
                 });
 
-            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Transaction", b =>
-                {
-                    b.Property<int>("TransactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransactionId"), 1L, 1);
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ETransactionType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserAccountId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TransactionId");
-
-                    b.HasIndex("StockId");
-
-                    b.HasIndex("UserAccountId");
-
-                    b.ToTable("Transactions");
-                });
-
-            modelBuilder.Entity("NovaMoedaInvestimentos.Models.UserAccount", b =>
-                {
-                    b.Property<int>("UserAccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserAccountId"), 1L, 1);
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("UserAccountId");
-
-                    b.ToTable("UserAccounts");
-                });
-
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.DetailOrder", b =>
                 {
                     b.HasOne("NovaMoedaInvestimentos.Models.Order", "Order")
@@ -238,17 +192,6 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Stock");
-                });
-
-            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>
-                {
-                    b.HasOne("NovaMoedaInvestimentos.Models.UserAccount", "UserAccount")
-                        .WithMany()
-                        .HasForeignKey("UserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserAccount");
                 });
 
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.ShoppingCartItem", b =>
@@ -271,25 +214,6 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Transaction", b =>
-                {
-                    b.HasOne("NovaMoedaInvestimentos.Models.Stock", "Stock")
-                        .WithMany()
-                        .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NovaMoedaInvestimentos.Models.UserAccount", "UserAccount")
-                        .WithMany("Transactions")
-                        .HasForeignKey("UserAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Stock");
-
-                    b.Navigation("UserAccount");
-                });
-
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.Category", b =>
                 {
                     b.Navigation("Stocks");
@@ -298,11 +222,6 @@ namespace NovaMoedaInvestimentos.Migrations
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("NovaMoedaInvestimentos.Models.UserAccount", b =>
-                {
-                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

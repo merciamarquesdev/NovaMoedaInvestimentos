@@ -1,4 +1,4 @@
-﻿using NovaMoedaInvestimentos.Models.Enums;
+﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,9 +11,23 @@ namespace NovaMoedaInvestimentos.Models
         [Key]
         public int OrderId { get; set; }
 
-        [Required(ErrorMessage = "Transaction Type is Required")]
-        [DisplayName("Transaction Type")]
-        public ETransactionType ETransactionType { get; set; }
+        [Required(ErrorMessage = "O campo 'Nome' é obrigatório.")]
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "O campo 'Sobrenome' é obrigatório.")]
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "O campo 'Telefone' é obrigatório.")]
+        [StringLength(25)]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "O campo 'Email' é obrigatório.")]
+        [StringLength(50)]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Amount is Required")]
         [Column(TypeName = "decimal(18,2)")]
@@ -33,8 +47,6 @@ namespace NovaMoedaInvestimentos.Models
 
         public List<DetailOrder> OrderItems { get; set; } 
 
-        public int UserAccountId { get; set; }
-        public virtual UserAccount UserAccount { get; set; }
 
     }
 }

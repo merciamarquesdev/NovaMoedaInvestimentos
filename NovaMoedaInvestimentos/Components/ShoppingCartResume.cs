@@ -17,12 +17,6 @@ namespace NovaMoedaInvestimentos.Components
         {
             var items = _shoppingCart.GetShoppingCartItems();
 
-            //var items = new List<ShoppingCartItem>()
-            //{
-            //    new ShoppingCartItem(),
-            //    new ShoppingCartItem()
-            //};
-
             _shoppingCart.ShoppingCartItems = items;
 
             var shoppingCartVM = new ShoppingCartViewModel
