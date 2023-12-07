@@ -1,7 +1,18 @@
-﻿@model IEnumerable<NovaMoedaInvestimentos.Models.Stock>
+﻿@model StockListViewModel
+
 <div class="container" style="margin: 0; padding: 0;text-align: center;">
     <div id="header" style="padding: 0;">
-        <img src="~/images/graph/acoes-header.png" alt="acoes" style="display:block ; margin: 0 auto; max-width: 100%;">
+        <div>
+            <img src="~/images/graph/acoes-header.png" alt="acoes" style="display:block ; margin: 0 auto; max-width: 100%;">
+        </div>
+
+        <br />
+        
+        <div class="text-left">
+            <h3>@Model.CurrentCategory</h3>
+        </div>
+        <br />
+            
     </div>
 @{
     ViewData["Title"] = "List";
@@ -10,7 +21,7 @@
     <table class="table table-hover table-responsive">
         <tbody>
 
-            @foreach(var stock in Model)
+            @foreach(var stock in Model.Stocks)
                     {
                         <partial name ="_StocksResume" for="@stock"/>
                     }
@@ -19,7 +30,7 @@
 
     <div class="text-center">
         <br />
-        <h6>@ViewData["Data"] | @ViewBag.Total @ViewBag.TotalStocks</h6>
+        <h6>@ViewData["Data"]</h6>
     </div>
 </div>
 

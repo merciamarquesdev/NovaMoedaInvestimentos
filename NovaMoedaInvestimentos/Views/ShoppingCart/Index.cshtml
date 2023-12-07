@@ -24,17 +24,16 @@
             {
                   <tr>
                       <td class="text-center">@item.Quantity</td>
-                        <td class="text-left">@item.Stock.Name - @item.Stock.Symbol</td>
+                      <td class="text-left">@item.Stock.Name - @item.Stock.Symbol</td>
                       <td class="text-right">@item.Stock.CurrentPrice.ToString("c")</td>
-                      
-                       <td class="text-right">
-                          @((item.Quantity * item.Stock.CurrentPrice).ToString("c"))
-                       </td>
+                      <td class="text-right">
+                         @((item.Quantity * item.Stock.CurrentPrice).ToString("c"))
+                      </td>
 
-                       <td class="text-center">
+                      <td class="text-center">
                             <a asp-controller="ShoppingCart" asp-action="RemoveItemFromShoppingCart"
-                               asp-route-lancheId="@item.Stock.StockId"><img src="~/images/shoppingCart/delete.png" width="10px" height="10px" />
-                         </a>
+                               asp-route-stockId="@item.Stock.StockId"><img src="~/images/shoppingCart/delete.png" width="15rem"/>
+                           </a>
                       </td>
                   </tr>                  
             }

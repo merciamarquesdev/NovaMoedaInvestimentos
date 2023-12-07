@@ -1,4 +1,5 @@
-﻿using NovaMoedaInvestimentos.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NovaMoedaInvestimentos.Context;
 using NovaMoedaInvestimentos.Models;
 using NovaMoedaInvestimentos.Repositories.Interfaces;
 
@@ -11,10 +12,11 @@ namespace NovaMoedaInvestimentos.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Stock> Stocks => _context.Stocks;
+        public IEnumerable<Stock> Stocks => _context.Stocks.Include(c => c.Category);
 
-        public IEnumerable<Stock> FavoriteStocks => _context.Stocks.
-                                   Where(l => l.IsFavoriteStock);
+        public IEnumerable<Stock> FavoriteStocks => _context.Stocks
+                                   .Where(l => l.IsFavoriteStock)
+                                   .Include(c => c.Category);
 
 
         public Stock GetStockById(int stockId)

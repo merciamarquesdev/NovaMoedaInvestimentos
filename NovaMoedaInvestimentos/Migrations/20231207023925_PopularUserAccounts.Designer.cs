@@ -12,8 +12,8 @@ using NovaMoedaInvestimentos.Context;
 namespace NovaMoedaInvestimentos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231205190553_PopularTransactions")]
-    partial class PopularTransactions
+    [Migration("20231207023925_PopularUserAccounts")]
+    partial class PopularUserAccounts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,88 @@ namespace NovaMoedaInvestimentos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.DetailOrder", b =>
+                {
+                    b.Property<int>("DetailOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetailOrderId"), 1L, 1);
+
+                    b.Property<decimal>("CurrentPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetailOrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("DetailOrders");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ETransactionType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("TotalOrderItems")
+                        .HasColumnType("float");
+
+                    b.Property<int>("UserAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserAccountId");
+
+                    b.ToTable("Orders");
+                });
 
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.ShoppingCartItem", b =>
                 {
@@ -57,6 +139,9 @@ namespace NovaMoedaInvestimentos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("CurrentPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -79,6 +164,8 @@ namespace NovaMoedaInvestimentos.Migrations
                         .HasColumnType("nvarchar(4)");
 
                     b.HasKey("StockId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Stocks");
                 });
@@ -136,6 +223,36 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.ToTable("UserAccounts");
                 });
 
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.DetailOrder", b =>
+                {
+                    b.HasOne("NovaMoedaInvestimentos.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NovaMoedaInvestimentos.Models.Stock", "Stock")
+                        .WithMany()
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>
+                {
+                    b.HasOne("NovaMoedaInvestimentos.Models.UserAccount", "UserAccount")
+                        .WithMany()
+                        .HasForeignKey("UserAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserAccount");
+                });
+
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.ShoppingCartItem", b =>
                 {
                     b.HasOne("NovaMoedaInvestimentos.Models.Stock", "Stock")
@@ -143,6 +260,17 @@ namespace NovaMoedaInvestimentos.Migrations
                         .HasForeignKey("StockId");
 
                     b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Stock", b =>
+                {
+                    b.HasOne("NovaMoedaInvestimentos.Models.Category", "Category")
+                        .WithMany("Stocks")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.Transaction", b =>
@@ -162,6 +290,16 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Navigation("Stock");
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Category", b =>
+                {
+                    b.Navigation("Stocks");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.UserAccount", b =>

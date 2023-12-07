@@ -14,18 +14,61 @@ namespace NovaMoedaInvestimentos.Controllers
         {
             _stockRepository = stockRepository;
         }
-        public IActionResult List()
+        public IActionResult List(string category)
         {
             ViewData["Titulo"] = "Ações";
             ViewData["Data"] = DateTime.Now;
 
-            var stocks = _stockRepository.Stocks;
-            var totalStocks = stocks.Count();
+            IEnumerable<Stock> stocks;
+            string currentCategory = string.Empty;
 
-            ViewBag.Total = "Total de Ações: ";
-            ViewBag.TotalStocks = totalStocks;
+            if (string.IsNullOrEmpty(category))
+            {
+                stocks = _stockRepository.Stocks.OrderBy(s => s.StockId);
+                currentCategory = "Todas as Ações";
+            }
+            else
+            {
+                if (string.Equals("Financeiro", category, StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = _stockRepository.Stocks
+                        .Where(l => l.Category.Name.Equals("Financeiro"))
+                        .OrderBy(l => l.Name);
+                }
+                else if (string.Equals("Petróleo e Gás", category, StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = _stockRepository.Stocks
+                       .Where(l => l.Category.Name.Equals("Petróleo e Gás"))
+                       .OrderBy(l => l.Name);
+                }
+                else if (string.Equals("Saúde", category, StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = _stockRepository.Stocks
+                       .Where(l => l.Category.Name.Equals("Saúde"))
+                       .OrderBy(l => l.Name);
+                }
+                else if (string.Equals("Serviços", category, StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = _stockRepository.Stocks
+                       .Where(l => l.Category.Name.Equals("Serviços"))
+                       .OrderBy(l => l.Name);
+                }
+                else
+                {
+                    stocks = _stockRepository.Stocks
+                       .Where(l => l.Category.Name.Equals("Tecnologia da Informação"))
+                       .OrderBy(l => l.Name);
+                }
+                currentCategory = category;
+            }
 
-            return View(stocks);
+            var stocksListViewModel = new StockListViewModel
+            {
+                Stocks = stocks,
+                CurrentCategory = currentCategory
+            };
+
+            return View(stocksListViewModel);
         }
 
         public IActionResult Details(int stockId)
@@ -47,18 +90,18 @@ namespace NovaMoedaInvestimentos.Controllers
             else
             {
                 stocks = _stockRepository.Stocks
-                          .Where(p => p.Name.ToLower().Contains(searchString.ToLower()));
+                          .Where(p => ((p.Name.ToLower().Contains(searchString.ToLower())) | (p.Symbol.ToLower().Contains(searchString.ToLower()))));
 
                 if (stocks.Any())
                     category = "Ações";
                 else
-                    category = "Nenhuma ação foi encontrada";
+                    category = "Nenhuma ação com esse nome foi encontrada.";
             }
 
             return View("~/Views/Stock/List.cshtml", new StockListViewModel
             {
                 Stocks = stocks,
-                Category = category
+                CurrentCategory = category
             });
         }
     }

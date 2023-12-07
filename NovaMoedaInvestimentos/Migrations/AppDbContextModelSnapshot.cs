@@ -22,6 +22,29 @@ namespace NovaMoedaInvestimentos.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.DetailOrder", b =>
                 {
                     b.Property<int>("DetailOrderId")
@@ -114,6 +137,9 @@ namespace NovaMoedaInvestimentos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("CurrentPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -136,6 +162,8 @@ namespace NovaMoedaInvestimentos.Migrations
                         .HasColumnType("nvarchar(4)");
 
                     b.HasKey("StockId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Stocks");
                 });
@@ -232,6 +260,17 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Navigation("Stock");
                 });
 
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Stock", b =>
+                {
+                    b.HasOne("NovaMoedaInvestimentos.Models.Category", "Category")
+                        .WithMany("Stocks")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.Transaction", b =>
                 {
                     b.HasOne("NovaMoedaInvestimentos.Models.Stock", "Stock")
@@ -249,6 +288,11 @@ namespace NovaMoedaInvestimentos.Migrations
                     b.Navigation("Stock");
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("NovaMoedaInvestimentos.Models.Category", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("NovaMoedaInvestimentos.Models.Order", b =>

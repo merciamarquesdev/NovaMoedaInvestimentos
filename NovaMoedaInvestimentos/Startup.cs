@@ -23,6 +23,7 @@ public class Startup
         services.AddTransient<IStockRepository, StockRepository>();
         services.AddTransient<IUserAccountRepository, UserAccountRepository>();
         services.AddTransient<ITransactionRepository, TransactionRepository>();
+        services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -58,6 +59,11 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllerRoute(
+               name: "categoryFilter",
+               pattern: "Stock/{action}/{category?}",
+               defaults: new { Controller = "Stock", action = "List" });
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

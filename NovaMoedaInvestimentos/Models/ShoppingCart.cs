@@ -67,7 +67,7 @@ namespace NovaMoedaInvestimentos.Models
 
             var localQuantity = 0;
 
-            if(shoppingCartItem != null)
+            if (shoppingCartItem != null)
             {
                 if(shoppingCartItem.Quantity > 1)
                 {
@@ -78,9 +78,10 @@ namespace NovaMoedaInvestimentos.Models
                 {
                     _context.ShoppingCartItems.Remove(shoppingCartItem);
                 }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
             return localQuantity;
+
         }
 
         public List<ShoppingCartItem> GetShoppingCartItems()
