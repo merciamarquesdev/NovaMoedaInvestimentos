@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NovaMoedaInvestimentos.ViewModels;
 
@@ -16,6 +17,7 @@ namespace NovaMoedaInvestimentos.Controllers
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel()
@@ -24,6 +26,7 @@ namespace NovaMoedaInvestimentos.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
@@ -53,6 +56,7 @@ namespace NovaMoedaInvestimentos.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(LoginViewModel registroVM)
@@ -81,6 +85,7 @@ namespace NovaMoedaInvestimentos.Controllers
             return View(registroVM);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NovaMoedaInvestimentos.Models;
 using NovaMoedaInvestimentos.Repositories.Interfaces;
 
@@ -16,12 +17,14 @@ namespace NovaMoedaInvestimentos.Controllers
             _shoppingCart = shoppingCart;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Checkout()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Order order)
         {

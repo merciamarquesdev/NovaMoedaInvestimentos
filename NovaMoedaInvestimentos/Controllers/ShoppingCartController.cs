@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NovaMoedaInvestimentos.Models;
 using NovaMoedaInvestimentos.Repositories.Interfaces;
 using NovaMoedaInvestimentos.ViewModels;
@@ -30,6 +31,7 @@ namespace NovaMoedaInvestimentos.Controllers
             return View(shoppingCartVM);
         }
 
+        [Authorize]
         public IActionResult AddItemToShoppingCart(int stockId)
         {
             var selectedStock = _stockRepository.Stocks.FirstOrDefault(p => p.StockId == stockId);
@@ -40,6 +42,7 @@ namespace NovaMoedaInvestimentos.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RemoveItemFromShoppingCart(int stockId)
         {
             var selectedStock = _stockRepository.Stocks.FirstOrDefault(p => p.StockId == stockId);
